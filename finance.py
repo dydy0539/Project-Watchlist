@@ -129,6 +129,7 @@ stocks = [Stock() for _ in range(symbolsCount)]
 
 for i in range(0,symbolsCount):
     stocks[i].companyName = ws[COLUMN_NAME+str(i+2)].value
+    print(stocks[i].companyName)
     stocks[i].symbol = ws[COLUMN_SYMBOL+str(i+2)].value
     if ws[COLUMN_BUSINESS_VALUE+str(i+2)].value : stocks[i].business = float(ws[COLUMN_BUSINESS_VALUE+str(i+2)].value)
     else :
@@ -371,7 +372,7 @@ populateDiffColumnData(inNAStocks,wsDiff[DIFF_COLUMN_NA+str(1)].offset(0,1))
 #compare cur valuation and old valuation
 #TODO NICE TO HAVE PAINT WHOLE CATEGORY COLUMNS
 
-wb.save(filename = r'C:\Users\Yi\Dropbox\Programming\Project Watchlist\result.xlsx')
+wb.save(filename = currentResultFilePath)
 
 #SEND EMAIL
 
@@ -383,7 +384,7 @@ from email import encoders
 
 if  inUnderValuedStocks or inSUnderValuedStocks or  inFairValuedStocks or  inOvervaluedStocks or   inNAStocks:
     email_user = 'globalvaluescanner@gmail.com'
-    email_password = 'PythonEmailService!8102'
+    email_password = 'PythonEmailService!163'
     email_send = '17714346535@163.com'
 
     subject = 'Valuation Update'
@@ -396,7 +397,7 @@ if  inUnderValuedStocks or inSUnderValuedStocks or  inFairValuedStocks or  inOve
     body = 'Position Update'
     msg.attach(MIMEText(body,'plain'))
 
-    filename=r'C:\Users\Yi\Dropbox\Programming\Project Watchlist\result.xlsx'
+    filename=currentResultFilePath
     attachment  =open(filename,'rb')
 
     part = MIMEBase('application','octet-stream')
